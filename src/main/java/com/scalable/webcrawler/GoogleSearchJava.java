@@ -24,6 +24,8 @@ import org.jsoup.select.Elements;
 public class GoogleSearchJava
 {
 
+    private static final String RESULT_LINK = "h3.r > a:not([class])";
+
     public static final String GOOGLE_SEARCH_URL = "https://www.google.com/search";
 
     public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36";
@@ -74,7 +76,7 @@ public class GoogleSearchJava
         String searchURL = GoogleSearchJava.GOOGLE_SEARCH_URL + "?q=" + searchTerm;
         Document doc = Jsoup.connect(searchURL).timeout(5000).userAgent(GoogleSearchJava.USER_AGENT).get();
 
-        Elements results = doc.select("h3.r > a:not([class])");
+        Elements results = doc.select(GoogleSearchJava.RESULT_LINK);
 
         Stream<Element> stream =
             StreamSupport.stream(
@@ -94,7 +96,7 @@ public class GoogleSearchJava
         Response response;
         try
         {
-            response = Jsoup.connect(linkHref).userAgent("Mozilla").execute();
+            response = Jsoup.connect(linkHref).userAgent(GoogleSearchJava.USER_AGENT).execute();
             final Document doc = response.parse();
             final File f = new File("download/" + linkText);
             Files.write(Paths.get(f.getPath() + ".html"), doc.outerHtml().getBytes());
