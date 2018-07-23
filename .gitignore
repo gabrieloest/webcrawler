@@ -1,5 +1,7 @@
 /target/
-/download/*.html
+/download/**
+!/download/
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
