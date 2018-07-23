@@ -2,6 +2,7 @@ package com.scalable.webcrawler;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -20,10 +21,14 @@ public class Main {
 		List<String> listOfLibraries = extractJS.extractListOfLibraries().stream().sorted()
 				.collect(Collectors.toList());
 
+		System.out.println("---------- All Libraries ----------");
 		listOfLibraries.forEach(System.out::println);
 
 		Statistics statistics = new Statistics();
-		statistics.countLibraries(listOfLibraries);
+		Map<String, Long> librariesStatistics = statistics.countLibraries(listOfLibraries);
+		System.out.println("---------- Top 5 Libraries ----------");
+		librariesStatistics.entrySet().stream().sorted((c1, c2) -> c2.getValue().compareTo(c1.getValue()))
+				.forEach(System.out::println);
 	}
 
 }

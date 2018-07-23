@@ -43,6 +43,7 @@ public class GoogleSearch {
 		Stream<Element> stream = StreamSupport
 				.stream(Spliterators.spliteratorUnknownSize(results.iterator(), Spliterator.ORDERED), false);
 
+		System.out.println("---------- Search Result ----------");
 		stream.forEach(it -> {
 			downloadPage(it);
 		});
