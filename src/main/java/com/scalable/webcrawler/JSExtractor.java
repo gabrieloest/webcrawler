@@ -9,10 +9,8 @@ import java.util.stream.Collectors;
 
 public class JSExtractor {
 
-	private static final String DOWNLOAD_FOLDER = "download";
-
-	public List<String> extractListOfLibraries() {
-		return readFilesFromFolder().stream().map(it -> readLines(it)).flatMap(it -> {
+	public List<String> extractListOfLibraries(String folder) {
+		return readFilesFromFolder(folder).stream().map(it -> readLines(it)).flatMap(it -> {
 			if (it == null) {
 				return null;
 			}
@@ -20,9 +18,9 @@ public class JSExtractor {
 		}).collect(Collectors.toList());
 	}
 
-	private List<Path> readFilesFromFolder() {
+	private List<Path> readFilesFromFolder(String folder) {
 		try {
-			return Files.walk(Paths.get(DOWNLOAD_FOLDER)).filter(Files::isRegularFile).collect(Collectors.toList());
+			return Files.walk(Paths.get(folder)).filter(Files::isRegularFile).collect(Collectors.toList());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

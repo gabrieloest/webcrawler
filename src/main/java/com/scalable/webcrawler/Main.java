@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class Main {
 
+	private static final String DOWNLOAD_FOLDER = "download";
+
 	public static void main(String[] args) throws IOException {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter the search term.");
@@ -18,7 +20,7 @@ public class Main {
 		googleSearch.search(searchTerm);
 
 		JSExtractor extractJS = new JSExtractor();
-		List<String> listOfLibraries = extractJS.extractListOfLibraries().stream().sorted()
+		List<String> listOfLibraries = extractJS.extractListOfLibraries(DOWNLOAD_FOLDER).stream().sorted()
 				.collect(Collectors.toList());
 
 		System.out.println("---------- All Libraries ----------");
